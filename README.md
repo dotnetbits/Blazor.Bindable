@@ -2,7 +2,7 @@
 Source Generator Project to add Bindable Attribute that creates binding for blazor parameters.
 
 ## How to use
-If you write
+If have a property with the `Bindable` attribute in a `partial class`
 ```C#
 [Parameter, Bindable] public string TestPropertyName { get; set; }
 ```
