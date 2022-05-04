@@ -1,9 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<RootNamespace>Blazor.Bindable</RootNamespace>
 	<IsPackable>true</IsPackable>
+	  
+	<Authors>thalaeg</Authors>
+	<Company>DotNetBits</Company>
+	<Description>Attributes for SourceGenerator on Blazor.Bindable. Reference Blazor.Bindable rather than this project.</Description>
+	<PackageProjectUrl>https://github.com/dotnetbits/Blazor.Bindable</PackageProjectUrl>
   </PropertyGroup>
-
 </Project>

@@ -3,25 +3,29 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NoPackageAnalysis>true</NoPackageAnalysis>
+	<LangVersion>latest</LangVersion>	
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<LangVersion>latest</LangVersion>
-	  
-    <!-- Generates a package at build -->
     <IncludeBuildOutput>false</IncludeBuildOutput>
+	  
+    <Authors>thalaeg</Authors>
+    <Company>DotNetBits</Company>
+    <Description>An attribute to add EventCallBack Changed Parameter and a backing property that triggers change and sets original property.</Description>
+    <PackageProjectUrl>https://github.com/dotnetbits/Blazor.Bindable</PackageProjectUrl>
+    <PackageTags>blazor, sourcegenerator, binding</PackageTags>	  
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="bin\Debug\netstandard2.0\\Blazor.Bindable.dll" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" PrivateAssets="all" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.Bindable.Runtime\Blazor.Bindable.Runtime.csproj" />
     
     <!-- Package the generator in the analyzer directory of the nuget package -->
-	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	  <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 </Project>

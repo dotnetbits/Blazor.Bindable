@@ -32,6 +32,7 @@ namespace Blazor.Bindable
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
 
             var source = new StringBuilder($@"
+// Do not modify generated file
 namespace {namespaceName}
 {{
     public partial class {classSymbol.Name}
@@ -39,7 +40,9 @@ namespace {namespaceName}
 ");
             CreateEventCallbackAndCurrentInstanceForBindables(properties, source);
 
-            source.Append("} }");
+            source.Append(@"
+    }
+}");
             return source.ToString();
         }
 
