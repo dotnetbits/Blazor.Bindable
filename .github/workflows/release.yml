@@ -1,0 +1,37 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup .NET
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 3.1.x
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Set Version
+        run: |
+          VERSION=`git describe --tags`
+          echo "Publishing Version: ${VERSION}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          
+      - name: Pack
+        run: |
+          dotnet pack Blazor.Bindable/Blazor.Bindable.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release -o ./publish
+          dotnet pack Blazor.Bindable.Runtime/Blazor.Bindable.Runtime.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release -o ./publish
+      - name: Publish the package to nuget.org
+        run: dotnet nuget push */publish/**/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
