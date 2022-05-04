@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
@@ -30,12 +31,13 @@ namespace Blazor.Bindable
         private string ProcessClass(INamedTypeSymbol classSymbol, List<IPropertySymbol> properties)
         {
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
+            var typeString = classSymbol.TypeParameters.Any() ? BuildTypeParameterString(classSymbol.TypeParameters) : "";
 
             var source = new StringBuilder($@"
 // Do not modify generated file
 namespace {namespaceName}
 {{
-    public partial class {classSymbol.Name}
+    public partial class {classSymbol.Name}{typeString}
     {{
 ");
             CreateEventCallbackAndCurrentInstanceForBindables(properties, source);
@@ -44,6 +46,20 @@ namespace {namespaceName}
     }
 }");
             return source.ToString();
+        }
+
+        private string BuildTypeParameterString(ImmutableArray<ITypeParameterSymbol> typeParameters)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<");
+            foreach (var typeParameter in typeParameters)
+            {
+                sb.Append(typeParameter.Name);
+                sb.Append(", ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(">");
+            return sb.ToString();
         }
 
         private void CreateEventCallbackAndCurrentInstanceForBindables(List<IPropertySymbol> properties, StringBuilder source)
