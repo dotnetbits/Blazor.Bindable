@@ -22,7 +22,7 @@ namespace Blazor.Bindable
             }}
             set
             {{
-                var hasChanged = value != this.{propertyName};
+                var hasChanged = !EqualityComparer<{propertyType}>.Default.Equals(value, this.{propertyName});
                 if (hasChanged)
                 {{
                     this.{propertyName} = value;
