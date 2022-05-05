@@ -22,7 +22,8 @@ jobs:
 
     - name: Set Version
       run: |
-        VERSION=`git describe --tags`
+        # get most recent tag and take off the "v" prefix
+        VERSION=`git describe --tags` | cut -c 2-
         echo "Publishing Version: ${VERSION}"
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
