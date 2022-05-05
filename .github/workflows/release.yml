@@ -1,6 +1,8 @@
 name: On Release Publish Nuget Package
 
-on: release
+on:
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -11,7 +13,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
     - name: Install dependencies
       run: dotnet restore
 
