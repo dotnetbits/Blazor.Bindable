@@ -29,9 +29,9 @@ jobs:
 
     - name: Pack
       run: |
-        dotnet pack Blazor.Bindable/Blazor.Bindable.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release -o ./publish
-        dotnet pack Blazor.Bindable.Runtime/Blazor.Bindable.Runtime.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release -o ./publish
+        dotnet pack Blazor.Bindable/Blazor.Bindable.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release
+        dotnet pack Blazor.Bindable.Runtime/Blazor.Bindable.Runtime.csproj /p:PackageVersion=$VERSION /p:Version=$VERSION -c Release
     - name: Publish the package to nuget.org
-      run: dotnet nuget push */publish/**/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push **/release/bin/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.BINDABLE_NUGET_TOKEN }}
