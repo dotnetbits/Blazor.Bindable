@@ -3,15 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-	<LangVersion>latest</LangVersion>	
+	  <LangVersion>latest</LangVersion>	
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-	  
+	      
+	  <PackageVersion>1.0.0</PackageVersion>
     <Authors>thalaeg</Authors>
-    <Company>DotNetBits</Company>
+    <Company>Strategic America</Company>
     <Description>An attribute to add EventCallBack Changed Parameter and a backing property that triggers change and sets original property.</Description>
     <PackageProjectUrl>https://github.com/dotnetbits/Blazor.Bindable</PackageProjectUrl>
-    <PackageTags>blazor, sourcegenerator, binding</PackageTags>	  
+    <PackageTags>blazor, source generator, binding</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

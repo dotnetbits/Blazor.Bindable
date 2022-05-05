@@ -6,8 +6,9 @@
 	<RootNamespace>Blazor.Bindable</RootNamespace>
 	<IsPackable>true</IsPackable>
 	  
+	<PackageVersion>1.0.0</PackageVersion>
 	<Authors>thalaeg</Authors>
-	<Company>DotNetBits</Company>
+	<Company>Strategic America</Company>
 	<Description>Attributes for SourceGenerator on Blazor.Bindable. Reference Blazor.Bindable rather than this project.</Description>
 	<PackageProjectUrl>https://github.com/dotnetbits/Blazor.Bindable</PackageProjectUrl>
   </PropertyGroup>
