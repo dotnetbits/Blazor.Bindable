@@ -1,9 +1,6 @@
-name: release
+name: On Release Publish Nuget Package
 
-on:
-  push:
-    tags:
-      - '*'
+on: release
 
 jobs:
   build:
@@ -12,7 +9,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Setup .NET
-    - uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 3.1.x
     - name: Install dependencies
