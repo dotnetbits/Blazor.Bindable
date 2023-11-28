@@ -33,7 +33,7 @@ namespace Blazor.Bindable
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var typeString = classSymbol.TypeParameters.Any() ? BuildTypeParameterString(classSymbol.TypeParameters) : "";
 
-            var source = new StringBuilder($@"
+            var source = new StringBuilder($@"#nullable enable
 // Do not modify generated file
 namespace {namespaceName}
 {{
@@ -44,7 +44,8 @@ namespace {namespaceName}
 
             source.Append(@"
     }
-}");
+}
+#nullable restore");
             return source.ToString();
         }
 

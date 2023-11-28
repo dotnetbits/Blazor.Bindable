@@ -14,9 +14,9 @@ namespace Blazor.Bindable
         public static string CurrentInstanceText(string propertyName, ITypeSymbol propertyType)
         {
             return $@"
-        private {propertyType} Current{propertyName} 
+        private {propertyType} Current{propertyName}
         {{
-            get 
+            get
             {{
                 return this.{propertyName};
             }}
