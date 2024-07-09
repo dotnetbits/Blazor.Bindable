@@ -7,6 +7,9 @@ If have a property with the `Bindable` attribute in a `partial class`
 [Parameter, Bindable] public string TestPropertyName { get; set; }
 ```
 
+## Note for .NET 6 higher
+**The attribute must be on a property in a class file (.razor.cs).  It cannot be in the razor @code section**
+
 It will append the generate the following code in the project's analyzer (allowing you to use Roslyn intellisense for properties and whatnot).
 ```C#
 [Microsoft.AspNetCore.Components.Parameter] public Microsoft.AspNetCore.Components.EventCallback<string> TestPropertyNameChanged { get; set; }

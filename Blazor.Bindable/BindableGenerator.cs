@@ -1,10 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 
 namespace Blazor.Bindable
 {
@@ -23,12 +23,16 @@ namespace Blazor.Bindable
         {
             foreach (var group in receiver.Properties.GroupBy<IPropertySymbol, INamedTypeSymbol>(f => f.ContainingType, SymbolEqualityComparer.Default))
             {
-                var classSource = ProcessClass(group.Key, group.ToList());
-                context.AddSource($"{group.Key.Name}.Bindable.g.cs", SourceText.From(classSource, Encoding.UTF8));
+                if (context.CancellationToken.IsCancellationRequested)
+                    break;
+
+                var hintName = BindableHelpers.SanitizeClassNameForFile($"{group.Key.ContainingNamespace}.{group.Key.Name}.g.cs");
+                var classSource = GenerateSource(group.Key, group.ToList());
+                context.AddSource(hintName, SourceText.From(classSource, Encoding.UTF8));
             }
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, List<IPropertySymbol> properties)
+        private string GenerateSource(INamedTypeSymbol classSymbol, List<IPropertySymbol> properties)
         {
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
             var typeString = classSymbol.TypeParameters.Any() ? BuildTypeParameterString(classSymbol.TypeParameters) : "";

@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.IO;
+using Microsoft.CodeAnalysis;
 
 namespace Blazor.Bindable
 {
@@ -31,6 +32,14 @@ namespace Blazor.Bindable
             }}
         }}
 ";
+        }
+
+        public static string SanitizeClassNameForFile(string className)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+                className = className.Replace(c, '_');
+
+            return className;
         }
     }
 }
